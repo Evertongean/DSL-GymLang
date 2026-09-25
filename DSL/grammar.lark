@@ -1,0 +1,51 @@
+// Gramática da DSL de prescrição de treinos.
+//
+// A gramática aceita valores escalares em todos os atributos para que erros de
+// tipo sejam relatados pelo checker semântico com mensagens específicas.
+
+start: global_statement*
+
+?global_statement: machines_decl
+                 | personals_decl
+                 | workout_decl
+
+machines_decl: "machines" "{" string_list? "}" ";"
+personals_decl: "personals" "{" string_list? "}" ";"
+string_list: STRING ("," STRING)* ","?
+
+workout_decl: "workout" STRING "{" block_item* "}" ";"
+superset_block: "superset" "{" block_item* "}" ";"
+repeat_block: "repeat" "{" block_item* "}" ";"
+defaults_block: "defaults" "{" block_item* "}" ";"
+
+exercise_decl: "exercise" STRING "{" block_item* "}" ";"
+exercise_ref: "exercise" STRING ";"
+
+// Uma regra de item ampla permite ao checker explicar construções que são
+// sintaticamente reconhecíveis, mas inválidas no contexto em que aparecem
+// (por exemplo, defaults dentro de exercise ou machines dentro de workout).
+?block_item: exercise_decl
+           | exercise_ref
+           | defaults_block
+           | superset_block
+           | repeat_block
+           | machines_decl
+           | personals_decl
+           | workout_decl
+           | attribute
+
+attribute: ATTRIBUTE value ";"
+
+?value: STRING         -> string_value
+      | SIGNED_NUMBER  -> number_value
+      | NONE           -> none_value
+
+ATTRIBUTE: /(sets|reps|rest|weight|machine|personal|muscle)\b/
+NONE: "None"
+
+%import common.ESCAPED_STRING -> STRING
+%import common.SIGNED_NUMBER
+%import common.WS
+
+%ignore WS
+%ignore /<[\s\S]*?>/

@@ -1,0 +1,54 @@
+machines {
+    "Supino",
+    "Hack"
+};
+
+personals {
+    "Junior",
+    "Caio"
+};
+
+workout "Treino A" {
+    < comentário ignorado pelo parser >
+
+    defaults {
+        reps 20;
+        personal "Junior";
+        muscle "Peito";
+    };
+
+    exercise "Supino Reto" {
+        sets 4;
+        rest 20;
+        weight 60.0;
+        machine "Supino";
+        personal "Caio";
+    };
+
+    exercise "Agachamento" {
+        sets 3;
+        reps 12;
+        rest 90;
+        machine None;
+    };
+
+    superset {
+        sets 3;
+        rest 90;
+
+        exercise "Supino Reto";
+
+        exercise "Crucifixo" {
+            sets 3;
+            reps 12;
+            rest 90;
+            machine None;
+        };
+    };
+
+    repeat {
+        reps 2;
+        rest 60;
+        exercise "Supino Reto";
+    };
+};

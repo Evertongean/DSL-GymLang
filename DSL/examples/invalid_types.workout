@@ -1,0 +1,20 @@
+machines { "Supino" };
+personals { "Caio" };
+
+workout "Treino inválido" {
+    exercise "Supino Reto" {
+        sets 0;
+        reps 10.5;
+        rest -1;
+        weight "pesado";
+        machine "Máquina inexistente";
+        personal None;
+        muscle 123;
+    };
+
+    repeat {
+        reps 0;
+        rest 1.5;
+        exercise "Não declarado";
+    };
+};

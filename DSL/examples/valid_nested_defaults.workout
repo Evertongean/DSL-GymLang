@@ -1,0 +1,22 @@
+machines { "Cabo" };
+personals { "Ana" };
+
+workout "Costas" {
+    defaults {
+        reps 12;
+        rest 60;
+        personal "Ana";
+        muscle "Costas";
+    };
+
+    superset {
+        defaults {
+            rest 90;
+        };
+
+        exercise "Puxada" {
+            sets 4;
+            machine "Cabo";
+        };
+    };
+};

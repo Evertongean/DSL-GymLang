@@ -1,0 +1,10 @@
+workout "Treino com erro de escopo" {
+    superset {
+        exercise "Crucifixo" {
+            sets 3;
+            reps 12;
+        };
+    };
+
+    exercise "Crucifixo";
+};
